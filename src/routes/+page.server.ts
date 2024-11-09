@@ -22,7 +22,7 @@ export const actions: Actions = {
         };
 
         const chatInput = chatForm.data.chatInput;
-        let response1, response2, response3 = "";
+        let response1, response2, response3, response4 = "";
         const groq = new Groq({ apiKey: GROQ_API_KEY });
         async function runLLM(modelId: string) {
             return groq.chat.completions.create({
@@ -45,6 +45,9 @@ export const actions: Actions = {
         const chatCompletion3 = await runLLM("mixtral-8x7b-32768");
         response3 = chatCompletion3.choices[0]?.message?.content || "Error";
 
+        const chatCompletion4 = await runLLM("mixtral-8x7b-32768");
+        response4 = chatCompletion4.choices[0]?.message?.content || "Error";
+        console.log(response4);
         return {
             chatForm,
             response1,
