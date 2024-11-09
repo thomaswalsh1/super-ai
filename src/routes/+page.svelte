@@ -4,7 +4,7 @@
     import * as Tabs from "$lib/components/ui/tabs";
 </script>
 
-<div class="flex flex-row h-full" id="bottom-container">
+<div class="grow flex flex-row" id="bottom-container">
     <div class="basis-1/2 border p-6 flex items-start w-full" id="prompt-half">
         <div id="prompt box" class="flex gap-4 w-full">
             <Textarea placeholder="chat" class="" />

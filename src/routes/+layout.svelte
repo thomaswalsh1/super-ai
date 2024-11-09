@@ -8,6 +8,12 @@
 
 <ModeWatcher />
 
-<Header />
+<div class="flex flex-col min-h-screen">
 
-{@render children()}
+	<Header />
+
+	<main class="flex grow">
+		{@render children()}
+	</main>
+
+</div>
