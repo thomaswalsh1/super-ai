@@ -46,7 +46,7 @@ export const actions: Actions = {
         response3 = chatCompletion3.choices[0]?.message?.content || "Error";
 
         const urlparameter = chatInput.replace(" ", "+");
-        const chatCompletion4 = await fetch(`https://www.wolframalpha.com/api/v1/llm-api?input=${urlparameter}&appid=J3552P-8VY6GW7E3Y&output=JSON&appid=${WOLFRAM_API_KEY}`);
+        const chatCompletion4 = await fetch(`https://www.wolframalpha.com/api/v1/llm-api?input=${urlparameter}&appid=${WOLFRAM_API_KEY}&output=JSON`);
         response4 = await chatCompletion4.text();
         console.log(response4);
         return {
