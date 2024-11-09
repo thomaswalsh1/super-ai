@@ -11,6 +11,7 @@
     import { zodClient } from "sveltekit-superforms/adapters";
     import { type ActionData } from "./$types";
     import { responses } from "./stores.svelte";
+    import LoaderCircle from "lucide-svelte/icons/loader-circle";
 
     type Props = {
         data: SuperValidated<Infer<ChatFormSchema>>;
@@ -29,7 +30,7 @@
         },
     });
 
-    const { form: formData, enhance } = chatForm;
+    const { form: formData, enhance, delayed } = chatForm;
 </script>
 
 <form method="POST" use:enhance class="flex flex-row gap-4">
@@ -43,5 +44,10 @@
         <!-- <Form.Description>Write any thing</Form.Description> -->
         <Form.FieldErrors />
     </Form.Field>
-    <Form.Button>Send</Form.Button>
+    <Form.Button disabled={$delayed}>
+        {#if $delayed}
+            <LoaderCircle class="mr-2 size-4 animate-spin" />
+        {/if}
+        Send
+    </Form.Button>
 </form>
