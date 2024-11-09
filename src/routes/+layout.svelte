@@ -3,17 +3,19 @@
 	import { ModeWatcher } from "mode-watcher";
 	import { Toaster } from "$lib/components/ui/sonner";
 	import Header from "./Header.svelte";
-	
+
+	let { children } = $props();
+
 	import { onMount } from "svelte";
 	import { fly, fade } from "svelte/transition";
 	import { cubicOut } from "svelte/easing";
 	import Logo from "$lib/assets/logo.jpg?enhanced";
-	
-	let showLogo = true;
-	let showText = false;
-	let showApp = false;
-	let logoMoving = false;
-	
+
+	let showLogo = $state(true);
+	let showText = $state(false);
+	let showApp = $state(false);
+	let logoMoving = $state(false);
+
 	onMount(() => {
 		setTimeout(() => {
 			logoMoving = true;
@@ -21,7 +23,7 @@
 				showText = true;
 			}, 300);
 		}, 1000);
-		
+
 		setTimeout(() => {
 			showText = false;
 			showLogo = false;
@@ -31,6 +33,7 @@
 </script>
 
 <ModeWatcher />
+
 <Toaster richColors />
 
 <div class="flex flex-col min-h-screen overflow-hidden">
@@ -72,16 +75,13 @@
 
 	{#if showApp}
 		<div in:fade={{ duration: 1000 }}>
+
 			<Header />
+
 			<main class="flex flex-col grow">
-				<slot />
+				{@render children()}
 			</main>
+
 		</div>
 	{/if}
 </div>
-
-<style>
-	:global(body) {
-		overflow: hidden;
-	}
-</style>
