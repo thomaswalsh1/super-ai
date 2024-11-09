@@ -12,6 +12,7 @@
     import { type ActionData } from "./$types";
     import { responses } from "./stores.svelte";
     import LoaderCircle from "lucide-svelte/icons/loader-circle";
+    import { toast } from "svelte-sonner";
 
     type Props = {
         data: SuperValidated<Infer<ChatFormSchema>>;
@@ -26,7 +27,11 @@
                 responses.response1 = action.response1;
                 responses.response2 = action.response2;
                 responses.response3 = action.response3;
+                toast.success("Success");
             };
+        },
+        onError() {
+            toast.error("Error, please try again later :(");
         },
     });
 
