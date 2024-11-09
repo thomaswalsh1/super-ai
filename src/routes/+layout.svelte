@@ -12,7 +12,7 @@
 
 	<Header />
 
-	<main class="flex grow">
+	<main class="flex flex-col grow">
 		{@render children()}
 	</main>
 
