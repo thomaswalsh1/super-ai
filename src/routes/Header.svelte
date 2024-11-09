@@ -4,11 +4,13 @@
     import { buttonVariants } from "$lib/components/ui/button";
     import Sun from "lucide-svelte/icons/sun";
     import Moon from "lucide-svelte/icons/moon";
+
+    import Logo from "$lib/assets/logo.jpg?enhanced";
 </script>
 
 <header class="flex flex-row justify-between gap-4 w-full p-6 border-b-2">
-    <div class="flex flex-row gap-2" id="logo-section">
-        Logo
+    <div class="flex flex-row items-center gap-2" id="logo-section">
+        <enhanced:img src={Logo} alt="Logo" class="h-12 w-12 rounded-lg" />
         <div id="name-header">
             <span class="text-3xl" id="name-heading">Super AI</span>
         </div>
