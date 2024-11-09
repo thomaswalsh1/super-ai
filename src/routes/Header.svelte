@@ -8,11 +8,11 @@
     import Logo from "$lib/assets/logo.jpg?enhanced";
 </script>
 
-<header class="flex flex-row justify-between gap-4 w-full p-6 border-b-2">
+<header class="flex flex-row justify-between gap-4 w-full p-4 border-b-2">
     <div class="flex flex-row items-center gap-2" id="logo-section">
-        <enhanced:img src={Logo} alt="Logo" class="h-12 w-12 rounded-lg" />
+        <enhanced:img src={Logo} alt="Logo" class="h-8 w-8 rounded-lg" />
         <div id="name-header">
-            <span class="text-3xl" id="name-heading">Super AI</span>
+            <span class="text-2xl font-semibold" id="name-heading">Super AI</span>
         </div>
     </div>
 
