@@ -12,7 +12,7 @@
     import OutputBox from "./OutputBox.svelte";
 </script>
 
-<div class="grow flex flex-row" id="bottom-container">
+<div class="grow flex flex-col md:flex-row" id="bottom-container">
     <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
     </div>
