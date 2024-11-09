@@ -21,13 +21,62 @@
 
     const chatForm = superForm(data, {
         validators: zodClient(chatFormSchema),
-        onUpdate({ form, result }) {
+        async onUpdate({ form, result }) {
             const action = result.data as FormResult<ActionData>;
             if (form.valid && action.response1 && action.response2 && action.response3) {
                 responses.response1 = action.response1;
                 responses.response2 = action.response2;
                 responses.response3 = action.response3;
-                toast.success("Success");
+                toast.success("LLM responses success");
+                try {
+                    toast.info("Evaluating...");
+                    console.log("Evaluating inputs:");
+                    const inputs = {
+                        prompt: form.data.chatInput,
+                        responses: [
+                            {
+                                "llm_name": "llama-3.1-8b-instant",
+                                "response": action.response1,
+                                "metadata": {
+                                    "temperature": 0.5,
+                                },
+                            },
+                            {
+                                "llm_name": "gemma2-9b-it",
+                                "response": action.response2,
+                                "metadata": {
+                                    "temperature": 0.5,
+                                },
+                            },
+                            {
+                                "llm_name": "mixtral-8x7b-32768",
+                                "response": action.response3,
+                                "metadata": {
+                                    "temperature": 0.5,
+                                },
+                            }
+                        ]
+                    };
+                    console.log(inputs);
+                    const response = await fetch("http://localhost:8000/evaluate", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(inputs),
+                    });
+                    if (!response.ok) {
+                        toast.error("Evaluating failed");
+                    } else {
+                        const result = await response.json();
+                        console.log("Evaluating result:");
+                        console.log(result);
+                        toast.success("Evaluating success");
+                    };
+                } catch (error) {
+                    console.error(error);
+                    toast.error("Evaluating failed");
+                };
             };
         },
         onError() {
