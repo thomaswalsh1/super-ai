@@ -22,6 +22,8 @@
                 <Tabs.Trigger value="llama-3.1-8b-instant">llama</Tabs.Trigger>
                 <Tabs.Trigger value="gemma2-9b-it">gemma</Tabs.Trigger>
                 <Tabs.Trigger value="mixtral-8x7b-32768">mixtral</Tabs.Trigger>
+                <Tabs.Trigger value="mixtral-8x7b-32768-2">Wolfram Alpha</Tabs.Trigger>
+
             </Tabs.List>
             <Tabs.Content value="llama-3.1-8b-instant">
                 <OutputBox outputText={responses.response1} />
@@ -31,6 +33,9 @@
             </Tabs.Content>
             <Tabs.Content value="mixtral-8x7b-32768">
                 <OutputBox outputText={responses.response3} />
+            </Tabs.Content>
+            <Tabs.Content value="mixtral-8x7b-32768-2">
+                <OutputBox outputText={responses.response4} />
             </Tabs.Content>
         </Tabs.Root>
     </div>
