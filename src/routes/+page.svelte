@@ -19,9 +19,9 @@
     <div class="basis-1/2 border p-6" id="output-half">
         <Tabs.Root value="llama-3.1-8b-instant">
             <Tabs.List>
-                <Tabs.Trigger value="llama-3.1-8b-instant">llama-3.1-8b-instant</Tabs.Trigger>
-                <Tabs.Trigger value="gemma2-9b-it">gemma2-9b-it</Tabs.Trigger>
-                <Tabs.Trigger value="mixtral-8x7b-32768">mixtral-8x7b-32768</Tabs.Trigger>
+                <Tabs.Trigger value="llama-3.1-8b-instant">llama</Tabs.Trigger>
+                <Tabs.Trigger value="gemma2-9b-it">gemma</Tabs.Trigger>
+                <Tabs.Trigger value="mixtral-8x7b-32768">mixtral</Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content value="llama-3.1-8b-instant">
                 <OutputBox outputText={responses.response1} />
