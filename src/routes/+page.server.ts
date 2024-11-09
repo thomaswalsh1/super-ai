@@ -4,7 +4,7 @@ import { superValidate } from "sveltekit-superforms";
 import { chatFormSchema } from "./chatFormSchema";
 import { zod } from "sveltekit-superforms/adapters";
 import Groq from "groq-sdk";
-import { GROQ_API_KEY } from "$env/static/private";
+import { GROQ_API_KEY, WOLFRAM_API_KEY } from "$env/static/private";
 
 export const load: PageServerLoad = async () => {
     return {
@@ -45,14 +45,16 @@ export const actions: Actions = {
         const chatCompletion3 = await runLLM("mixtral-8x7b-32768");
         response3 = chatCompletion3.choices[0]?.message?.content || "Error";
 
-        const chatCompletion4 = await runLLM("mixtral-8x7b-32768");
-        response4 = chatCompletion4.choices[0]?.message?.content || "Error";
+        const urlparameter = chatInput.replace(" ", "+");
+        const chatCompletion4 = await fetch(`https://www.wolframalpha.com/api/v1/llm-api?input=${urlparameter}&appid=J3552P-8VY6GW7E3Y&output=JSON&appid=${WOLFRAM_API_KEY}`);
+        response4 = await chatCompletion4.text();
         console.log(response4);
         return {
             chatForm,
             response1,
             response2,
             response3,
+            response4,
         };
     },
 };
