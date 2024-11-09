@@ -1,6 +1,7 @@
 <script lang="ts">
 	import "../app.css";
 	import { ModeWatcher } from "mode-watcher";
+	import { Toaster } from "$lib/components/ui/sonner";
 	import Header from "./Header.svelte";
 
 	let { children } = $props();
@@ -30,6 +31,8 @@
 </script>
 
 <ModeWatcher />
+
+<Toaster richColors />
 
 <div class="flex flex-col min-h-screen">
 	{#if showLogo}
