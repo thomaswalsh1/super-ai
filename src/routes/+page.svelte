@@ -17,19 +17,19 @@
         <ChatForm data={data.chatForm} />
     </div>
     <div class="basis-1/2 border p-6" id="output-half">
-        <Tabs.Root value="LLM 1" class="">
+        <Tabs.Root value="llama-3.1-8b-instant">
             <Tabs.List>
-                <Tabs.Trigger value="LLM 1">LLM 1</Tabs.Trigger>
-                <Tabs.Trigger value="LLM 2">LLM 2</Tabs.Trigger>
-                <Tabs.Trigger value="LLM 3">LLM 3</Tabs.Trigger>
+                <Tabs.Trigger value="llama-3.1-8b-instant">llama-3.1-8b-instant</Tabs.Trigger>
+                <Tabs.Trigger value="gemma2-9b-it">gemma2-9b-it</Tabs.Trigger>
+                <Tabs.Trigger value="mixtral-8x7b-32768">mixtral-8x7b-32768</Tabs.Trigger>
             </Tabs.List>
-            <Tabs.Content value="LLM 1">
+            <Tabs.Content value="llama-3.1-8b-instant">
                 <OutputBox outputText={responses.response1} />
             </Tabs.Content>
-            <Tabs.Content value="LLM 2">
+            <Tabs.Content value="gemma2-9b-it">
                 <OutputBox outputText={responses.response2} />
             </Tabs.Content>
-            <Tabs.Content value="LLM 3">
+            <Tabs.Content value="mixtral-8x7b-32768">
                 <OutputBox outputText={responses.response3} />
             </Tabs.Content>
         </Tabs.Root>
