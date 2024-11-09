@@ -1,6 +1,6 @@
 <script lang="ts">
-    import * as Form from "$lib/components/ui/form/index.js";
-    import { Input } from "$lib/components/ui/input/index.js";
+    import * as Form from "$lib/components/ui/form";
+    import { Textarea } from "$lib/components/ui/textarea";
     import { chatFormSchema, type ChatFormSchema } from "./chatFormSchema";
     import {
         type SuperValidated,
@@ -21,16 +21,16 @@
     const { form: formData, enhance } = chatForm;
 </script>
 
-<form method="POST" use:enhance>
-    <Form.Field form={chatForm} name="chatInput">
-    <Form.Control>
-        {#snippet children({ props })}
-            <Form.Label>Username</Form.Label>
-            <Input {...props} bind:value={$formData.username} />
-        {/snippet}
-    </Form.Control>
-    <Form.Description>This is your public display name.</Form.Description>
-    <Form.FieldErrors />
+<form method="POST" use:enhance class="flex flex-row gap-4">
+    <Form.Field form={chatForm} name="chatInput" class="grow">
+        <Form.Control>
+            {#snippet children({ props })}
+                <!-- <Form.Label>Chat</Form.Label> -->
+                <Textarea {...props} bind:value={$formData.chatInput} />
+            {/snippet}
+        </Form.Control>
+        <!-- <Form.Description>Write any thing</Form.Description> -->
+        <Form.FieldErrors />
     </Form.Field>
-    <Form.Button>Submit</Form.Button>
+    <Form.Button>Send</Form.Button>
 </form>

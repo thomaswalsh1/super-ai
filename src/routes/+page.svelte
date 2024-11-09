@@ -1,21 +1,19 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import ChatForm from "./chat-form.svelte";
-    let { data } = $props();
 
-    import { Textarea } from "$lib/components/ui/textarea";
-    import { Button } from "$lib/components/ui/button";
+    interface Props {
+        data: PageData;
+    }
+    let { data }: Props = $props();
+
     import * as Tabs from "$lib/components/ui/tabs";
     import OutputBox from "./OutputBox.svelte";
 </script>
 
 <div class="grow flex flex-row" id="bottom-container">
-    <div class="basis-1/2 border p-6 flex items-start w-full" id="prompt-half">
+    <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
-        <div id="prompt box" class="flex gap-4 w-full">
-            <Textarea placeholder="chat" class="bg-muted text-lg" />
-            <Button type="submit">Send</Button>
-        </div>
     </div>
     <div class="basis-1/2 border p-6" id="output-half">
         <Tabs.Root value="LLM 1" class="">
