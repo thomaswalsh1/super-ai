@@ -5,9 +5,12 @@
     import {
         type SuperValidated,
         type Infer,
+        type FormResult,
         superForm,
     } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
+    import { type ActionData } from "./$types";
+    import { responses } from "./stores.svelte";
 
     type Props = {
         data: SuperValidated<Infer<ChatFormSchema>>;
@@ -16,6 +19,14 @@
 
     const chatForm = superForm(data, {
         validators: zodClient(chatFormSchema),
+        onUpdate({ form, result }) {
+            const action = result.data as FormResult<ActionData>;
+            if (form.valid && action.response1 && action.response2 && action.response3) {
+                responses.response1 = action.response1;
+                responses.response2 = action.response2;
+                responses.response3 = action.response3;
+            };
+        },
     });
 
     const { form: formData, enhance } = chatForm;

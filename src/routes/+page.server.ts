@@ -1,8 +1,10 @@
-import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import type { PageServerLoad, Actions } from "./$types";
+import { fail } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms";
 import { chatFormSchema } from "./chatFormSchema";
 import { zod } from "sveltekit-superforms/adapters";
+import Groq from "groq-sdk";
+import { GROQ_API_KEY } from "$env/static/private";
 
 export const load: PageServerLoad = async () => {
     return {
@@ -17,9 +19,37 @@ export const actions: Actions = {
             return fail(400, {
                 chatForm,
             });
-        }
+        };
+
+        const chatInput = chatForm.data.chatInput;
+        let response1, response2, response3 = "";
+        const groq = new Groq({ apiKey: GROQ_API_KEY });
+        async function runLLM(modelId: string) {
+            return groq.chat.completions.create({
+                messages: [
+                    {
+                        role: "user",
+                        content: chatInput,
+                    },
+                ],
+                model: modelId,
+            });
+        };
+
+        const chatCompletion1 = await runLLM("llama-3.1-8b-instant");
+        response1 = chatCompletion1.choices[0]?.message?.content || "Error";
+
+        const chatCompletion2 = await runLLM("gemma2-9b-it");
+        response2 = chatCompletion2.choices[0]?.message?.content || "Error";
+
+        const chatCompletion3 = await runLLM("mixtral-8x7b-32768");
+        response3 = chatCompletion3.choices[0]?.message?.content || "Error";
+
         return {
             chatForm,
+            response1,
+            response2,
+            response3,
         };
     },
 };
