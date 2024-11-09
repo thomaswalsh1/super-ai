@@ -3,23 +3,25 @@
 	import { ModeWatcher } from "mode-watcher";
 	import { Toaster } from "$lib/components/ui/sonner";
 	import Header from "./Header.svelte";
-	
+
+	let { children } = $props();
+
 	import { onMount } from "svelte";
 	import { fly, fade } from "svelte/transition";
 	import { cubicOut } from "svelte/easing";
 	import Logo from "$lib/assets/logo.jpg?enhanced";
-	
-	let showLogo = true;
-	let showText = false;
-	let showApp = false;
-	let logoMoving = false;
-	
+
+	let showLogo = $state(true);
+	let showText = $state(false);
+	let showApp = $state(false);
+	let logoMoving = $state(false);
+
 	onMount(() => {
 		setTimeout(() => {
 			showText = true;
 			logoMoving = true;
 		}, 1000);
-	
+
 		setTimeout(() => {
 			showText = false;
 			showLogo = false;
@@ -27,7 +29,7 @@
 		}, 2000);
 	});
 </script>
-	
+
 <ModeWatcher />
 
 <Toaster richColors />
@@ -62,7 +64,7 @@
 		<Header />
 
 		<main class="flex flex-col grow">
-			<slot />
+			{@render children()}
 		</main>
 	{/if}
 </div>
