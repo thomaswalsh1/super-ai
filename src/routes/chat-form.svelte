@@ -27,6 +27,7 @@
                 responses.response1 = action.response1;
                 responses.response2 = action.response2;
                 responses.response3 = action.response3;
+                responses.response4 = action.response4;
                 toast.success("LLM responses success");
                 try {
                     toast.info("Evaluating...");
