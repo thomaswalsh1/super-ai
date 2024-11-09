@@ -65,7 +65,7 @@
 						out:fade={{ duration: 500 }}
 					>
 						<h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold whitespace-nowrap">
-							SUPER AI
+							SuperAI
 						</h1>
 					</div>
 				{/if}

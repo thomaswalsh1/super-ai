@@ -12,6 +12,11 @@
     import OutputBox from "./OutputBox.svelte";
 </script>
 
+<svelte:head>
+	<title>SuperAI</title>
+	<meta name="description" content="SuperAI - the superpowered AI aggregator" />
+</svelte:head>
+
 <div class="grow flex flex-col md:flex-row" id="bottom-container">
     <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
