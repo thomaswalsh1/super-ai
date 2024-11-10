@@ -23,7 +23,7 @@
         validators: zodClient(chatFormSchema),
         async onUpdate({ form, result }) {
             const action = result.data as FormResult<ActionData>;
-            if (form.valid && action.response1 && action.response2 && action.response3) {
+            if (form.valid && action.response1 && action.response2 && action.response3 && action.response4) {
                 responses.response1 = action.response1;
                 responses.response2 = action.response2;
                 responses.response3 = action.response3;
