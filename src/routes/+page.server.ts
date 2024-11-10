@@ -51,8 +51,8 @@ export const actions: Actions = {
         if (!chatCompletion4Text) {
             throw new Error("Invalid response from Wolfram API");
         }
-        response4 = chatCompletion4Text.split('Result:').pop()?.split('Wolfram|')[0] || "Error";
-        console.log(response4);
+        response4 = chatCompletion4Text || "Error";
+        // console.log(response4);
         return {
             chatForm,
             response1,

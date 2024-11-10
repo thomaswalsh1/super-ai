@@ -10,7 +10,7 @@
     } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
     import { type ActionData } from "./$types";
-    import { responses } from "./stores.svelte";
+    import { evaluations, responses } from "./stores.svelte";
     import LoaderCircle from "lucide-svelte/icons/loader-circle";
     import { toast } from "svelte-sonner";
 
@@ -59,7 +59,7 @@
                         ]
                     };
                     console.log(inputs);
-                    const response = await fetch("http://localhost:8000/evaluate", {
+                    const response = await fetch("/api/evaluate", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -72,6 +72,7 @@
                         const result = await response.json();
                         console.log("Evaluating result:");
                         console.log(result);
+                        evaluations.evaluation = result;
                         toast.success("Evaluating success");
                     };
                 } catch (error) {
