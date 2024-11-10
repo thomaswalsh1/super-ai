@@ -28,12 +28,9 @@
                 responses.response2 = action.response2;
                 responses.response3 = action.response3;
                 responses.response4 = action.response4;
-                toast.success("LLM responses success");
                 try {
                     evaluations.evaluation.rankings = [];
                     evaluating.is = true;
-                    toast.info("Evaluating...");
-                    console.log("Evaluating inputs:");
                     const inputs = {
                         prompt: form.data.chatInput,
                         responses: [
@@ -67,7 +64,6 @@
                             },
                         ]
                     };
-                    console.log(inputs);
                     const response = await fetch("/api/evaluate", {
                         method: "POST",
                         headers: {
@@ -76,19 +72,15 @@
                         body: JSON.stringify(inputs),
                     });
                     if (!response.ok) {
-                        toast.error("Evaluating failed");
+                        toast.error("Evaluating failed, please try again later :(");
                     } else {
                         const result = await response.json();
-                        console.log("Evaluating result:");
-                        console.log(result);
                         evaluations.evaluation = result.data;
                         responses.superResponse = result.superResponse;
-                        toast.success("Evaluating success");
                     };
                     evaluating.is = false;
                 } catch (error) {
-                    console.error(error);
-                    toast.error("Evaluating failed");
+                    toast.error("Evaluating failed, please try again later :(");
                     evaluating.is = false;
                 };
             };

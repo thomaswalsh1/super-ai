@@ -52,8 +52,7 @@ export const actions: Actions = {
             throw new Error("Invalid response from Wolfram API");
         }
         response4 = chatCompletion4Text || "Error";
-        
-        // console.log(response4);
+
         return {
             chatForm,
             response1,
