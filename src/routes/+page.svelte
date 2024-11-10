@@ -15,6 +15,12 @@
 
     let sortedRankings = $derived([...evaluations.evaluation.rankings].sort((a: any, b: any) => b.score - a.score));
     let topRanking  = $derived(sortedRankings[0]);
+
+    let expandedCardIndex: number | null = $state(null);
+
+    function toggleCardExpansion(index: number) {
+        expandedCardIndex = expandedCardIndex === index ? null : index;
+    };
 </script>
 
 <svelte:head>
@@ -27,8 +33,12 @@
         <ChatForm data={data.chatForm} />
         <div class="flex flex-col items-center border">
             <div class="w-fit grid grid-cols-2 gap-8 p-6">
-                {#each sortedRankings as ranking}
-                    <Card.Root class="w-88 flex flex-col items-center" style={"border: " + (topRanking.llm_name === ranking.llm_name ? "2px solid green" : "")}>
+                {#each sortedRankings as ranking, index}
+                    <Card.Root
+                        class="w-88 flex flex-col items-center" 
+                        style={"border: " + (topRanking.llm_name === ranking.llm_name ? "2px solid green" : "")}
+                        onclick={() => toggleCardExpansion(index)}
+                    >
                         <Card.Header>
                             <Card.Title class="flex flex-row gap-4">
                                 {ranking.llm_name}
@@ -38,10 +48,18 @@
                         <Card.Content class="flex flex-col items-center gap-4">
                             <p>Ranking:</p>
                             <Gauge value={ranking.score} max={10} />
+                            {#if expandedCardIndex === index}
+                                <div class="flex flex-col items-center gap-4 mt-4 p-">
+                                    <h3>Additional Details</h3>
+                                    <p>Reasoning: {ranking.reasoning}</p>
+                                    <ul>
+                                        {#each Object.entries(ranking.scores) as [key, value]}
+                                          <li>{key}: {value}</li>
+                                        {/each}
+                                    </ul>
+                                </div>
+                            {/if}
                         </Card.Content>
-                        <!-- <Card.Footer>
-                            <p>Card Footer</p>
-                        </Card.Footer> -->
                     </Card.Root>
                 {/each}
             </div>
