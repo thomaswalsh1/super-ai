@@ -36,26 +36,33 @@
                         prompt: form.data.chatInput,
                         responses: [
                             {
-                                "llm_name": "llama-3.1-8b-instant",
+                                "llm_name": "llama",
                                 "response": action.response1,
                                 "metadata": {
                                     "temperature": 0.5,
                                 },
                             },
                             {
-                                "llm_name": "gemma2-9b-it",
+                                "llm_name": "gemma2",
                                 "response": action.response2,
                                 "metadata": {
                                     "temperature": 0.5,
                                 },
                             },
                             {
-                                "llm_name": "mixtral-8x7b-32768",
+                                "llm_name": "mixtral",
                                 "response": action.response3,
                                 "metadata": {
                                     "temperature": 0.5,
                                 },
-                            }
+                            },
+                            {
+                                "llm_name": "wolfram",
+                                "response": action.response4,
+                                "metadata": {
+                                    "temperature": 0.5,
+                                },
+                            },
                         ]
                     };
                     console.log(inputs);
@@ -84,6 +91,7 @@
         onError() {
             toast.error("Error, please try again later :(");
         },
+        resetForm: false,
     });
 
     const { form: formData, enhance, delayed } = chatForm;
