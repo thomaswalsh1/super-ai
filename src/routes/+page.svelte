@@ -34,7 +34,7 @@
                             <Card.Title class="flex flex-row gap-4">
                                 {ranking.llm_name}
                                 {#if topRanking.llm_name === ranking.llm_name}
-                                    <Sparkles class="h-4 w-4 text-yellow-500" />
+                                    <Sparkles class="h-4 w-4" />
                                 {/if}
                             </Card.Title>
                             <!-- <Card.Description>Card Description</Card.Description> -->
