@@ -32,10 +32,10 @@
             <p class="text-xl font-semibold pt-4">Rankings:</p>
             {#if evaluating.is}
                 <div class="w-fit grid grid-cols-2 gap-8 p-6">
-                    <Skeleton class="w-64 h-48" />
-                    <Skeleton class="w-64 h-48" />
-                    <Skeleton class="w-64 h-48" />
-                    <Skeleton class="w-64 h-48" />
+                    <Skeleton class="w-32 md:w-64 h-48" />
+                    <Skeleton class="w-32 md:w-64 h-48" />
+                    <Skeleton class="w-32 md:w-64 h-48" />
+                    <Skeleton class="w-32 md:w-64 h-48" />
                 </div>
             {/if}
             <div class="w-fit grid grid-cols-2 gap-8 p-6">
