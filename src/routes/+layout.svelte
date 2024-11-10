@@ -9,7 +9,7 @@
 	import { onMount } from "svelte";
 	import { fly, fade } from "svelte/transition";
 	import { cubicOut } from "svelte/easing";
-	import Logo from "$lib/assets/logo.jpg?enhanced";
+	import Logo from "$lib/assets/logo.png?enhanced";
 
 	let showLogo = $state(true);
 	let showText = $state(false);
