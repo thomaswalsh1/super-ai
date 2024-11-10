@@ -111,7 +111,7 @@ export const POST: RequestHandler = async ({request}) => {
 
     const evaluationData = parseEvaluation(responseText);
 
-    const superPrompt = `Generate an aggregate response that uses parts of all these responses: "${JSON.stringify(inputs)}" choose which parts of the responses to use using these rankings: "${JSON.stringify(evaluationData)}."`;
+    const superPrompt = `Generate an aggregate response that uses parts of all these responses: "${JSON.stringify(inputs)}" choose which parts of the responses to use using these rankings: "${JSON.stringify(evaluationData)}. Only give the answer with no introduction, for example do not say I'll try to provide a summary."`;
     const theSuperResponse = await runLLM(llmName, superPrompt);
     const superText = theSuperResponse.choices[0]?.message?.content || "Error";
 
