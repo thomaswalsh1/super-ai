@@ -9,7 +9,13 @@
     let { data }: Props = $props();
 
     import * as Tabs from "$lib/components/ui/tabs";
+    import * as Card from "$lib/components/ui/card";
     import OutputBox from "./OutputBox.svelte";
+    import Gauge from "./Gauge.svelte";
+    import Sparkles from "lucide-svelte/icons/sparkles";
+
+    let sortedRankings = $derived([...evaluations.evaluation.rankings].sort((a: any, b: any) => b.score - a.score));
+    let topRanking  = $derived(sortedRankings[0]);
 </script>
 
 <svelte:head>
@@ -20,8 +26,29 @@
 <div class="grow flex flex-col md:flex-row" id="bottom-container">
     <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
-        <div class="flex flex-col border">
-            
+        <div class="flex flex-col items-center border">
+            <div class="w-fit grid grid-cols-2 gap-8 p-6">
+                {#each sortedRankings as ranking}
+                    <Card.Root class="w-48 flex flex-col items-center">
+                        <Card.Header>
+                            <Card.Title class="flex flex-row gap-4">
+                                {ranking.llm_name}
+                                {#if topRanking.llm_name === ranking.llm_name}
+                                    <Sparkles class="h-4 w-4 text-yellow-500" />
+                                {/if}
+                            </Card.Title>
+                            <!-- <Card.Description>Card Description</Card.Description> -->
+                        </Card.Header>
+                        <Card.Content class="flex flex-col items-center gap-4">
+                            <p>Ranking:</p>
+                            <Gauge value={ranking.score} max={10} />
+                        </Card.Content>
+                        <!-- <Card.Footer>
+                            <p>Card Footer</p>
+                        </Card.Footer> -->
+                    </Card.Root>
+                {/each}
+            </div>
             <pre>
 {JSON.stringify(evaluations.evaluation, null, 2)}
             </pre>
