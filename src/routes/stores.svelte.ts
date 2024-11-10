@@ -15,3 +15,7 @@ export let evaluations = $state({
 export let evaluating = $state({
     is: false,
 });
+
+export let usePy = $state({
+    is: false,
+});
