@@ -74,7 +74,7 @@
 	{/if}
 
 	{#if showApp}
-		<div in:fade={{ duration: 1000 }}>
+		<div in:fade={{ duration: 1000 }} class="flex flex-col grow">
 
 			<Header />
 

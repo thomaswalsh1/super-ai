@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import ChatForm from "./chat-form.svelte";
-    import { responses } from "./stores.svelte";
+    import { responses, evaluations } from "./stores.svelte";
 
     interface Props {
         data: PageData;
@@ -20,6 +20,12 @@
 <div class="grow flex flex-col md:flex-row" id="bottom-container">
     <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
+        <div class="flex flex-col border">
+            
+            <pre>
+{JSON.stringify(evaluations.evaluation, null, 2)}
+            </pre>
+        </div>
     </div>
     <div class="basis-1/2 border p-6" id="output-half">
         <Tabs.Root value="llama-3.1-8b-instant">
