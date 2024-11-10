@@ -46,8 +46,12 @@ export const actions: Actions = {
         response3 = chatCompletion3.choices[0]?.message?.content || "Error";
 
         const urlparameter = chatInput.replace(" ", "+");
-        const chatCompletion4 = await fetch(`https://www.wolframalpha.com/api/v1/llm-api?input=${urlparameter}&appid=${WOLFRAM_API_KEY}&output=JSON`);
-        response4 = await chatCompletion4.text();
+        const chatCompletion4 = await fetch(`https://www.wolframalpha.com/api/v1/llm-api?input=${urlparameter}&appid=${WOLFRAM_API_KEY}&output=json`);
+        const chatCompletion4Text = await chatCompletion4.text();
+        if (!chatCompletion4Text) {
+            throw new Error("Invalid response from Wolfram API");
+        }
+        response4 = chatCompletion4Text.split('Result:').pop()?.split('Wolfram|')[0] || "Error";
         console.log(response4);
         return {
             chatForm,
