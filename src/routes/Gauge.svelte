@@ -48,9 +48,17 @@
             cy={size / 2}
         />
     </svg>
-    <span 
-        class="absolute font-semibold text-lg" 
-    >
-        {value*10}%
-    </span>
+    {#if size === 50}
+        <span
+            class="absolute font-semibold text-xs" 
+        >
+            {value*10}%
+        </span>
+    {:else}
+        <span 
+            class="absolute font-semibold text-lg" 
+        >
+            {value*10}%
+        </span>
+    {/if}
 </div>

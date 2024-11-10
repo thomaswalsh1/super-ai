@@ -10,8 +10,10 @@
 
     import * as Tabs from "$lib/components/ui/tabs";
     import * as Card from "$lib/components/ui/card";
+    import * as Popover from "$lib/components/ui/popover";
     import OutputBox from "./OutputBox.svelte";
     import Gauge from "./Gauge.svelte";
+    import { Trigger } from "$lib/components/ui/dropdown-menu";
 
     let sortedRankings = $derived([...evaluations.evaluation.rankings].sort((a: any, b: any) => b.score - a.score));
     let topRanking  = $derived(sortedRankings[0]);
@@ -26,23 +28,39 @@
     <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
         <div class="flex flex-col items-center border">
+            <p class="text-xl font-semibold pt-4">Rankings:</p>
             <div class="w-fit grid grid-cols-2 gap-8 p-6">
                 {#each sortedRankings as ranking}
-                    <Card.Root class="w-88 flex flex-col items-center" style={"border: " + (topRanking.llm_name === ranking.llm_name ? "2px solid green" : "")}>
-                        <Card.Header>
-                            <Card.Title class="flex flex-row gap-4">
-                                {ranking.llm_name}
-                            </Card.Title>
-                            <!-- <Card.Description>Card Description</Card.Description> -->
-                        </Card.Header>
-                        <Card.Content class="flex flex-col items-center gap-4">
-                            <p>Ranking:</p>
-                            <Gauge value={ranking.score} max={10} />
-                        </Card.Content>
-                        <!-- <Card.Footer>
-                            <p>Card Footer</p>
-                        </Card.Footer> -->
-                    </Card.Root>
+                    <Popover.Root>
+                        <Popover.Trigger>
+                            <Card.Root class="w-88 flex flex-col items-center" style={"border: " + (topRanking.llm_name === ranking.llm_name ? "2px solid green" : "")}>
+                                <Card.Header>
+                                    <Card.Title class="flex flex-row gap-4">
+                                        {ranking.llm_name}
+                                    </Card.Title>
+                                    <!-- <Card.Description>Card Description</Card.Description> -->
+                                </Card.Header>
+                                <Card.Content class="flex flex-col items-center gap-4">
+                                    <p>Ranking:</p>
+                                    <Gauge value={ranking.score} max={10} />
+                                </Card.Content>
+                                <!-- <Card.Footer>
+                                    <p>Card Footer</p>
+                                </Card.Footer> -->
+                            </Card.Root>
+                        </Popover.Trigger>
+                        <Popover.Content class="w-52">
+                            <p>Additional data:</p>
+                            <ul>
+                                {#each Object.entries(ranking.scores) as [key, value]}
+                                  <li class="flex flex-row items-center justify-between gap-2 pb-2">
+                                    {key.charAt(0).toUpperCase() + key.slice(1)}: 
+                                    <Gauge value={value} max={10} size={50} strokeWidth={7} />
+                                  </li>
+                                {/each}
+                            </ul>
+                        </Popover.Content>
+                    </Popover.Root>
                 {/each}
             </div>
             <!-- <pre>
