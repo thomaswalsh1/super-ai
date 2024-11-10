@@ -42,7 +42,7 @@
                                 },
                             },
                             {
-                                "llm_name": "gemma2",
+                                "llm_name": "gemma",
                                 "response": action.response2,
                                 "metadata": {
                                     "temperature": 0.5,
