@@ -10,7 +10,7 @@
     } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
     import { type ActionData } from "./$types";
-    import { evaluations, responses } from "./stores.svelte";
+    import { evaluations, responses, evaluating } from "./stores.svelte";
     import LoaderCircle from "lucide-svelte/icons/loader-circle";
     import { toast } from "svelte-sonner";
 
@@ -30,6 +30,7 @@
                 responses.response4 = action.response4;
                 toast.success("LLM responses success");
                 try {
+                    evaluating.is = true;
                     toast.info("Evaluating...");
                     console.log("Evaluating inputs:");
                     const inputs = {
@@ -82,9 +83,11 @@
                         evaluations.evaluation = result;
                         toast.success("Evaluating success");
                     };
+                    evaluating.is = false;
                 } catch (error) {
                     console.error(error);
                     toast.error("Evaluating failed");
+                    evaluating.is = false;
                 };
             };
         },
@@ -102,7 +105,7 @@
         <Form.Control>
             {#snippet children({ props })}
                 <!-- <Form.Label>Chat</Form.Label> -->
-                <Textarea {...props} bind:value={$formData.chatInput} />
+                <Textarea {...props} bind:value={$formData.chatInput} placeholder="Ask a question..." />
             {/snippet}
         </Form.Control>
         <!-- <Form.Description>Write any thing</Form.Description> -->

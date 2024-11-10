@@ -10,3 +10,7 @@ export let evaluations = $state({
         "rankings": [],
     },
 });
+
+export let evaluating = $state({
+    is: false,
+});

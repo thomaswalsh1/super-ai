@@ -13,7 +13,8 @@
     import * as Popover from "$lib/components/ui/popover";
     import OutputBox from "./OutputBox.svelte";
     import Gauge from "./Gauge.svelte";
-    import { Trigger } from "$lib/components/ui/dropdown-menu";
+    import { evaluating } from "./stores.svelte";
+    import { Skeleton } from "$lib/components/ui/skeleton";
 
     let sortedRankings = $derived([...evaluations.evaluation.rankings].sort((a: any, b: any) => b.score - a.score));
     let topRanking  = $derived(sortedRankings[0]);
@@ -27,13 +28,21 @@
 <div class="grow flex flex-col md:flex-row" id="bottom-container">
     <div class="basis-1/2 border p-6" id="prompt-half">
         <ChatForm data={data.chatForm} />
-        <div class="flex flex-col items-center border">
+        <div class="flex flex-col items-center border rounded-lg mt-2">
             <p class="text-xl font-semibold pt-4">Rankings:</p>
+            {#if evaluating.is}
+                <div class="w-fit grid grid-cols-2 gap-8 p-6">
+                    <Skeleton class="w-64 h-48" />
+                    <Skeleton class="w-64 h-48" />
+                    <Skeleton class="w-64 h-48" />
+                    <Skeleton class="w-64 h-48" />
+                </div>
+            {/if}
             <div class="w-fit grid grid-cols-2 gap-8 p-6">
                 {#each sortedRankings as ranking}
                     <Popover.Root>
                         <Popover.Trigger>
-                            <Card.Root class="w-88 flex flex-col items-center" style={"border: " + (topRanking.llm_name === ranking.llm_name ? "2px solid green" : "")}>
+                            <Card.Root class="w-88 flex flex-col items-center px-8" style={"border: " + (topRanking.llm_name === ranking.llm_name ? "2px solid green" : "")}>
                                 <Card.Header>
                                     <Card.Title class="flex flex-row gap-4">
                                         {ranking.llm_name}
@@ -49,7 +58,7 @@
                                 </Card.Footer> -->
                             </Card.Root>
                         </Popover.Trigger>
-                        <Popover.Content class="w-52">
+                        <Popover.Content side="right" class="w-52 spece-y-2">
                             <p>Additional data:</p>
                             <ul>
                                 {#each Object.entries(ranking.scores) as [key, value]}
@@ -59,6 +68,8 @@
                                   </li>
                                 {/each}
                             </ul>
+                            <p>Reasoning:</p>
+                            <p class="text-sm font-semibold">{ranking.reasoning}</p>
                         </Popover.Content>
                     </Popover.Root>
                 {/each}

@@ -35,7 +35,7 @@ export const POST: RequestHandler = async ({request}) => {
     - Accuracy: (0-10)
     - Coherence: (0-10)
     - Completeness: (0-10)
-    REASONING: (2-3 sentences explaining these scores)
+    REASONING: (1 sentence explaining these scores)
     
     EVALUATION FOR ${inputs.responses[1].llm_name}:
     SCORES:
@@ -43,7 +43,7 @@ export const POST: RequestHandler = async ({request}) => {
     - Accuracy: (0-10)
     - Coherence: (0-10)
     - Completeness: (0-10)
-    REASONING: (2-3 sentences explaining these scores)
+    REASONING: (1 sentence explaining these scores)
     
     [Continue same format for each response]
     
@@ -57,7 +57,7 @@ export const POST: RequestHandler = async ({request}) => {
     Rules:
     1. You must evaluate EVERY response
     2. All scores must be numbers between 0 and 10
-    3. You must provide reasoning for each response
+    3. You must provide reasoning for each response, limit the reasoning to ONE SENTENCE ONLY
     4. You must include a final ranking of ALL responses
     5. Use EXACT headings: "EVALUATION FOR", "SCORES:", "REASONING:", "FINAL RANKING:"
     6. Calculate average scores as (Relevance + Accuracy + Coherence + Completeness) / 4
