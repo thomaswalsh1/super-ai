@@ -30,6 +30,7 @@
                 responses.response4 = action.response4;
                 toast.success("LLM responses success");
                 try {
+                    evaluations.evaluation.rankings = [];
                     evaluating.is = true;
                     toast.info("Evaluating...");
                     console.log("Evaluating inputs:");
@@ -80,7 +81,8 @@
                         const result = await response.json();
                         console.log("Evaluating result:");
                         console.log(result);
-                        evaluations.evaluation = result;
+                        evaluations.evaluation = result.data;
+                        responses.superResponse = result.superResponse;
                         toast.success("Evaluating success");
                     };
                     evaluating.is = false;

@@ -3,6 +3,7 @@ export let responses = $state({
     response2: "",
     response3: "",
     response4: "",
+    superResponse: "",
 });
 
 export let evaluations = $state({
